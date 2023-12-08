@@ -125,6 +125,7 @@ class Chrome(selenium.webdriver.chrome.webdriver.WebDriver):
         use_subprocess=True,
         debug=False,
         no_sandbox=True,
+        extra_chrome_arguments=[],
         user_multi_procs: bool = False,
         **kw,
     ):
@@ -422,6 +423,10 @@ class Chrome(selenium.webdriver.chrome.webdriver.WebDriver):
 
         if hasattr(options, "handle_prefs"):
             options.handle_prefs(user_data_dir)
+
+        if extra_chrome_arguments:
+            for arg in extra_chrome_arguments:
+                options.add_argument(arg)
 
         # fix exit_type flag to prevent tab-restore nag
         try:
